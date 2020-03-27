@@ -30,9 +30,8 @@ namespace WindowsFormsApplication1
         {
             if (ToCelsiusRadio.Checked)
             {
-                // Quiere saber la longitud
+                // Quiere conversión a Celsius
                 string mensaje = "1/" + FahrenheitTextBox.Text;
-                // Enviamos al servidor el nombre tecleado
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
 
@@ -41,11 +40,11 @@ namespace WindowsFormsApplication1
                 server.Receive(msg2);
                 string respuesta = Encoding.ASCII.GetString(msg2).Split('\0')[0];
                 CelsiusTextBox.Text = respuesta;
-            }else
+            }
+            else
             {
-                // Quiere saber la longitud
+                // Quiere conversión a Fahrenheit
                 string mensaje = "2/" + CelsiusTextBox.Text;
-                // Enviamos al servidor el nombre tecleado
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
 
@@ -86,7 +85,6 @@ namespace WindowsFormsApplication1
         {
             // Nos desconectamos
             string mensaje = "/0";
-            // Enviamos al servidor el nombre tecleado
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
             this.BackColor = Color.Gray;
