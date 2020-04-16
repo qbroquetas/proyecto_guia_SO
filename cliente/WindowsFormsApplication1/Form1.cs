@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
@@ -109,6 +105,21 @@ namespace WindowsFormsApplication1
             }
         }
 
+
+        private void PeticionesBtn_Click(object sender, EventArgs e)
+        {
+            // Consultamos Número de peticiones
+            string mensaje = "/5";
+            // Enviamos al servidor el nombre tecleado
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
+
+            byte[] msg2 = new byte[80];
+            server.Receive(msg2);
+            mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+            ContLbl.Text = mensaje;
+        }
+
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
@@ -146,5 +157,7 @@ namespace WindowsFormsApplication1
             server.Close();
             MessageBox.Show("Desconectado");
         }
+
+    
     }
 }
